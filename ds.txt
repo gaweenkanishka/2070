@@ -1,0 +1,175 @@
+package test1;
+
+import java.util.Scanner;
+
+public class Queue {
+	private char[] queueArr;
+	private int maxSize;
+	private int rear;
+	private int front;
+	private int nItems;
+
+	public Queue(int s) {
+		maxSize = s;
+		queueArr = new char[maxSize];
+		rear = -1;
+		front = 0;
+		nItems = 0;
+
+	}
+
+	public boolean isEmpty() {
+		return (nItems == 0);
+	}
+
+	public boolean isFull() {
+		return (rear == (maxSize - 1));
+	}
+
+	// insert
+	public void insert(char i) {
+
+		if (nItems == maxSize) {
+			System.out.println("Queue is full");
+
+		} else {
+
+			if (rear == maxSize - 1)
+				rear = -1;
+
+			queueArr[++rear] = i;
+			nItems++;
+
+		}
+
+	}
+
+	// remove
+	public char remove() {
+
+		if (nItems == 0) {
+
+			System.out.print("Queue is empty");
+			return '.';
+
+		} else {
+			nItems--;
+
+			char temp = queueArr[front++];
+
+			if (front == maxSize)
+				front = 0;
+
+			return temp;
+
+		}
+	}
+
+}
+///////////////////////////////////////////////////////////////
+package test1;
+
+
+public class Stack {
+
+	private char[] array;
+	private int maxSize;
+	private int top;
+	
+	public Stack(int s) {
+		maxSize = s;
+		array = new char [maxSize];
+		top = -1;
+	}
+	
+	public boolean isFull(){
+		if(top == maxSize-1) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public boolean isEmpty() {
+		if(top == -1)
+			return true;
+		else
+			return false;
+	}
+	
+	public void push(char a) {
+		if(isFull()) 
+			System.out.println("Stack is Full");
+		else {
+			array[++top] = a;
+		}
+	}
+	
+	public char pop() {
+		if(isEmpty()) {
+			System.out.println("Stack is empty");
+			return '-';
+		}
+		else {
+			return array[top--];
+		}
+	}
+	
+	public char peek() {
+		if(isEmpty()) {
+			System.out.println("Stack is empty");
+			return '-';
+		}
+		else {
+			return array[top];
+		}
+	}
+}
+///////////////////////////////////////////////////////////////////////
+//answer1
+
+
+package test1;
+
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		int arrSize = 5;
+
+		Queue queueArr = new Queue(arrSize);
+		Stack stackArr = new Stack(arrSize);
+
+		Scanner sc = new Scanner(System.in);
+
+		for (int i = 0; i < arrSize; i++) {
+
+			System.out.print("Enter charater : ");
+			char c = sc.next().charAt(0);
+			queueArr.insert(c);
+		}
+
+		for (int i = 0; i < arrSize; i++) {
+			
+//			System.out.println(queueArr.remove());
+			stackArr.push(queueArr.remove());
+			
+		}
+		for (int i = 0; i < arrSize; i++) {
+			
+//			System.out.println(stackArr.pop());
+			queueArr.insert(stackArr.pop());
+
+		}
+		for (int i = 0; i < arrSize; i++) {
+
+			System.out.println(queueArr.remove());
+
+		}
+
+	}
+
+}
